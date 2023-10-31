@@ -1,0 +1,85 @@
+To Do:
+-----------
+1. Created dummy authenitcation in authenitcation.js, need to be updated
+2. Need to validated each input, like token too in authentication.
+3. Basic database structure has to be created for Executive,Visitor, message and ticket.
+4. Has to add some data in the subscribe event so that we can also update in database
+5. Created basic database operation for json data, which need to be changed
+6. Have to make a function to generate random ID to identify a Visitor.
+7. Have to add a timeout error in waitingAction service
+8. Need to check for executive in the pool if available
+9. I have created a generateMessage function, which saves various id as Visitor and executive and I need to change it.
+10. Have to add validations at various places, these are not there
+11. I have to check for both isOpne and isClose fields in the ticket before intiatiating chat
+12. Have to create an authentication middleware to protect the routes
+13. Has to do some changes in databases and backend as per new databases.
+
+
+-------------
+Has done:
+1. Basic Boilerplate
+2. Route files
+3. Created channel services which created channel subscription logic and handling Executive connections
+
+
+
+
+-----------------------
+Database Structures: 
+
+EXECUTIVE:{
+    id: String (Unique, 10 digit),
+    name: String,
+    password: String (Including certain must characters),
+    isOnline: Boolean,
+    email: String (With certain validations),
+    active_ticket: [],
+    tickets: [],
+    session: [],
+    userType: EXECUTIVE,
+    chats: [],
+    created_at: timestamp 
+}
+
+
+MESSAGE:{
+    id: String (Unique, 10 digit),
+    ticketID: String (Uique, 10 digit, if required),
+    chatID: String (Uique, 10 digit, if required),
+    created_at: timestamp,
+    senderID: String (Unique, 10 digit),
+    message: String,
+    type: String (PRIVATE, GROUP, TICKET)
+}
+
+TICKET:{
+    id: String (Unique, 10 digit),
+    visitorID: String (Unique, 10 digit),
+    created_at: timestamp,
+    isOpen: Boolean,
+    isClose: Boolean,
+    executiveID: String (Unique, 10 digit),
+    messages:[]
+}
+
+VISITOR: {
+    id: String (Unique, 10 digit),
+    name: String,
+    phone: Number (Validated mobile Number),
+    ip: String,
+    created_at: timestamp,
+}
+
+CHAT: {
+    id: String (Unique, 10 digit),
+    type: String (PRIVATE, GROUP),
+    subject: String (group name when created as GROUP),
+    description: String,
+    users: [userID],
+    maxUser: Number (2 for Private, more than 2 for Group),
+    messages: [],
+    creator: String (Unique, 10 digit),
+    created_at: timestamp,
+    isActive: Boolean,
+    deleted_at: timestamp
+}

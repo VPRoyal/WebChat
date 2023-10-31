@@ -1,0 +1,143 @@
+[
+  {
+    "id": "PCHAT82337357723560889571",
+    "type": "PRIVATE",
+    "created_at": 1698233735772,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "PCHAT82338244614658587639",
+    "type": "PRIVATE",
+    "created_at": 1698233824461,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "PCHAT82343335958051082759",
+    "type": "PRIVATE",
+    "created_at": 1698234333595,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "PCHAT82343843488640819651",
+    "type": "PRIVATE",
+    "created_at": 1698234384348,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "PCHAT82345503269395441292",
+    "type": "PRIVATE",
+    "created_at": 1698234550326,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "PCHAT82345910826292315404",
+    "type": "PRIVATE",
+    "created_at": 1698234591082,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "PCHAT82346622944442104628",
+    "type": "PRIVATE",
+    "created_at": 1698234662294,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "PCHAT82355349290939222178",
+    "type": "PRIVATE",
+    "created_at": 1698235534929,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "7q8r9s0t"
+    ],
+    "maxUser": 2,
+    "messages": [
+      "MESSAGE82358055431667631667",
+      "MESSAGE82358751750220095604",
+      "MESSAGE82359212474329598298",
+      "MESSAGE82359578311025707135",
+      "MESSAGE82361402661225966779",
+      "MESSAGE82361815410108225902"
+    ],
+    "isActive": true,
+    "deleted_at": null
+  },
+  {
+    "id": "GCHAT82367285794861745354",
+    "type": "GROUP",
+    "subject": "SAMPLE GROUP NAME",
+    "description": "This is a sample group description",
+    "created_at": 1698236728579,
+    "creator": "1a2b3c4d",
+    "users": [
+      "1a2b3c4d",
+      "1a2b3c4d",
+      "7q8r9s0t",
+      "c9d0e1f2"
+    ],
+    "maxUser": 20,
+    "messages": [
+      "MESSAGE82367586793731371188",
+      "MESSAGE82368006362113581997",
+      "MESSAGE82369061705507507200"
+    ],
+    "isActive": true,
+    "deleted_at": null
+  }
+]
