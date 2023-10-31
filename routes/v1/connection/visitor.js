@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
     addTickettoData({ticketID, visitorID})
     // ------------->>>>>> Notifying available executive for visitors
     // TODO: Send visitor details too (Optional)
-    broadcast({ visitorID, ticketID, type: "request" }, "visitor");
+    broadcast({ visitorID, ticketID, type: "request", name:data.name, email:data.email }, "visitor");
 
     // ------------->>>>>> Waiting for executive to respond
     // TODO: Check in fast database for ticket action
