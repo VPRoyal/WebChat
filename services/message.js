@@ -1,8 +1,8 @@
 import { addData } from "../test/dataOps.js"
-// TODO: Have to categorize message on the basis of private, group and ticket
+
 const generateMessage= (data)=>{
     const {senderID, ticketID, chatID, message, type}=data
-    // Need to add validations
+   
     const messageID =`MESSAGE${Date.now().toString().slice(-10)}${Math.random().toString().slice(2, 12)}`
     const messageObj={
         id:messageID,

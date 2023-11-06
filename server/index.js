@@ -10,6 +10,9 @@ import { Scheduler } from '../services/cron.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+import {config} from "dotenv"
+config()
+
 import Router from "../routes/route.js"
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -28,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(join(__dirname, 'public')));
 
 // Running cron job
-Scheduler()
+// Scheduler()
 
 app.use('/', Router);
 // app.use('/users', usersRouter);

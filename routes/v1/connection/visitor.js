@@ -6,8 +6,7 @@ import { broadcastByID, broadcast } from "../../../services/channels/handleExecu
 import { subscribe } from "../../../services/channels/handleVisitor.js";
 
 import { BadRequest, InternalServerError, RequestTimeout } from "../../../utils/errors.js";
-import { generateTicket } from "../../../services/ticket.js";
-import { addTickettoData, addVisitor } from "../../../services/visitor.js";
+import {VISITOR, TICKET} from '../../../database/index.js'
 const router = Router();
 router.get("/", async (req, res) => {
   let { ticketID, visitorID, ...data } = req.query;
@@ -18,19 +17,17 @@ router.get("/", async (req, res) => {
     // TODO: Implement Ticket Expiration check
   } else if (!(visitorID || ticketID)) {
     // He is a new person
-    const Visitor=addVisitor({name:data.name,email:data.email, phone:data.phone })
-    if(!(Visitor?.success)) res.status(InternalServerError.status).json(InternalServerError)
+    const Visitor=await VISITOR.generateVisitor({name:data.name,email:data.email, phone:data.phone })
+    console.log("VISITOR: ", Visitor)
+    if(!(Visitor?.success)) return res.status(InternalServerError.status).json(InternalServerError).end()
     visitorID=Visitor.data.visitorID
     // TODO: Check if executive available
     // TODO: Generate Ticket if executive avaialable
     // TODO: ADD Ticket in permanent database as well as in temp Database for fast access.
-    const Ticket= generateTicket({visitorID})
-    if(!(Ticket?.success)) {
-      res.status(BadRequest.status).json(BadRequest)
-      return
-    }
+    const Ticket= await TICKET.generateTicket({visitorID})
+    if(!(Ticket?.success)) return res.status(BadRequest.status).json(BadRequest).end()
     ticketID=Ticket.data.ticketID
-    addTickettoData({ticketID, visitorID})
+    VISITOR.addTicket({ticketID, visitorID})
     // ------------->>>>>> Notifying available executive for visitors
     // TODO: Send visitor details too (Optional)
     broadcast({ visitorID, ticketID, type: "request", name:data.name, email:data.email }, "visitor");

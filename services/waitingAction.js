@@ -1,5 +1,5 @@
-import { findData } from "../test/dataOps.js";
-
+import {TICKET} from "../database/index.js"
+// #TODO: This function needs to be improved to handle situation when user diconnected.
 const checkAction = async ({ ticketID }) => {
   return new Promise((resolve, reject) => {
     const timeout = 120000
@@ -13,8 +13,8 @@ const checkAction = async ({ ticketID }) => {
         }
       try {
         console.log("axiosPost")
-        const res = findData({databaseName: "TICKET",field: "id",value: ticketID});
-        if (res.success && res.data.isOpen){
+        const res = await TICKET.findTicket({id:ticketID});
+        if (res?.success && res?.data.isOpen){
           clearInterval(Interval)
            resolve(res);
         }
@@ -31,7 +31,7 @@ const waitingAction = async ({ ticketID },cb) => {
   try {
     const res = await checkAction({ ticketID });
     return res;
-  } catch (err) {return {success:false,message:"Error in executive action waiting",error: err}};
+  } catch (error) {return {success:false,message:"Error in executive action waiting",error}};
 };
 
 export { waitingAction };

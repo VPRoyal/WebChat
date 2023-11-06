@@ -1,5 +1,5 @@
 import { executivePool } from "./channels.js";
-import { updateDataByField } from "../../test/dataOps.js";
+import {EXECUTIVE} from "../../database/index.js"
 const checkState=()=>{
     executivePool.sessions.forEach(item=>{
         console.log(`session: ${item.userData.id}, state: ${item.isConnected}`)
@@ -46,9 +46,8 @@ const attachTicket=({userID, ticketID})=>{
 const register =(session)=>{
  console.log("Active sessions: ",executivePool.sessionCount)
  console.log("Executive Registered: ",session.state.userID)
- const postData={databaseName:"EXECUTIVE",fieldToFind:"id",fieldValue:session.state.userID, fieldToUpdate:"online", newValue:true}
  broadcast(`Total Executive online: ${sessionCount()}`,"broadcast");
- updateDataByField(postData)
+ EXECUTIVE.updateStatus({id:session.state.userID, status:true})
 }
 const unregister =(session)=>{
     // console.log("unregister sessions: ",executivePool.sessionCount)
@@ -59,8 +58,7 @@ const unregister =(session)=>{
 const disconnected =(session)=>{
     console.log("dissconnected ID: ", session.state.userID)
     // Updated Executive database
-    const postData={databaseName:"EXECUTIVE",fieldToFind:"id",fieldValue:session.state.userID, fieldToUpdate:"online", newValue:false}
-    updateDataByField(postData)
+    EXECUTIVE.updateStatus({id:session.state.userID, status:false})
     // TODO: Move Ticket from active_tickets to ticket in executive database
     // TODO: Update ticket status as remove executive id from TICKET global variable
     // TODO: Has to update ticket database as to 
