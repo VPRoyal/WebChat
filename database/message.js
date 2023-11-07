@@ -20,6 +20,7 @@ export default class Message {
   generateMessage=async(data)=>{
     const {senderID, ticketID, type, chatID, message}=data
     try {
+      console.log("Ticket ID: ", ticketID, type)
       if(!(ticketID||chatID)) throw new Error("ticketID and chatID both are not present")
       const Obj = new messageObj({senderID, ticketID, type, chatID, message});
       const res = await this.db.insertOne(Obj);

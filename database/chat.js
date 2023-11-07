@@ -41,6 +41,15 @@ export default class Chat {
       return {success:false, message: "Error adding message", error}
   }
   }
+  findChat= async({id})=>{
+    try {
+      const res= await this.db.findOne({id})
+      if (res) return { success: true, data: res };
+      throw new Error("No Ticket Found")
+    } catch (error) {
+      return { success: false, message: "Error fetching ticket", error}
+    }
+  }
   startPrivateChat=async ({senderID, receiverID})=>{
     try {
       const chat = new privateChatObj(senderID, receiverID);

@@ -3,6 +3,7 @@ let ticketObj = function TicketObject(visitorID) {
   (this.id = `TICKET${Date.now().toString().slice(-10)}${Math.random().toString().slice(2, 12)}`),
     (this.visitorID = visitorID),
     (this.createdAt = Date.now()),
+    (this.closedAt=null),
     (this.lastUpdated = Date.now()),
     (this.isOpen = false),
     (this.isClose = false),
@@ -37,7 +38,7 @@ export default  class Ticket {
   addMessage= async ({ticketID, messageID})=>{
     try {
       const filter={ id: ticketID }
-      const update={$push:{messages:messageID}}
+      const update={$set: {lastUpdated: Date.now(),messages: {$each: [messageID],$position: 0}}}
       const res= await this.db.updateOne(filter, update)
       if (!res.matchedCount) throw new Error("Doc not found")
       return {success: true,message: "Message added to the ticket."};
@@ -49,7 +50,7 @@ export default  class Ticket {
     // #TODO: Need to be update ExecutiveID as array. To accumulate multiple executives.
       try {
         const filter={ id: ticketID }
-        const updatingField={$set:{isOpen:true,executiveID}}
+        const updatingField={$set:{isOpen:true,executiveID, lastUpdated:new Date()}}
         const res= await this.db.updateOne(filter, updatingField)
         if (!res.matchedCount) throw new Error("Doc not found")
         return {success: true,message: "Fields are updated."};
@@ -60,7 +61,7 @@ export default  class Ticket {
   }
   closeTicket=async ({id})=>{
     try {
-      const update= {$set:{isClose:false}}
+      const update= {$set:{isClose:false, closedAt:new Date()}}
       const res= await this.db.updateOne({id}, update)
       if (!res.matchedCount) throw new Error("Doc not found")
       return {success: true,message: "Fields are updated."};

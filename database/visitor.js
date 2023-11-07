@@ -27,7 +27,7 @@ export default class Visitor {
   addTicket= async ({ticketID, visitorID})=>{
     try {
       const filter={ id: visitorID }
-      const update={$push:{activeTicket:ticketID}}
+      const update={$set: {activeTicket: ticketID,tickets: {$each: [ticketID],$position: 0}}}
       const res= await this.db.updateOne(filter, update)
       if (!res.matchedCount) throw new Error("Doc not found")
       return { success: true, message:"Ticket added" }
@@ -35,5 +35,17 @@ export default class Visitor {
       return {success: false,message: "Error adding Ticket",error}
     }
   }
+  closeTicket= async({ visitorID})=>{
+    try{
+      const filter = { id: visitorID };
+      const update = { $set: { activeTicket: null } };
+      const res = await this.db.updateOne(filter, update);
+      if (!res.matchedCount) throw new Error("Doc not found")
+    return {success: true,message: "Fields updated successfully."}
+  } catch (error) {
+    console.log("Error updating executive: ", error);
+    return { success: false, message: "Error updating fields", error };
+  }
+}
 }
 

@@ -5,69 +5,10 @@
     "password": "P@ssw0rd1",
     "online": true,
     "email": "john.doe@example.com",
-    "active_ticket": [
-      "TICKET83230913374917011659",
-      "TICKET83236361037081959847",
-      "TICKET83237449541711337033",
-      "TICKET83239994592695590508",
-      "TICKET83241602893334408577",
-      "TICKET83965006424439211747",
-      "TICKET86477818209397901668",
-      "TICKET86480404480836612588",
-      "TICKET86483902070388701595",
-      "TICKET86484681079424062367",
-      "TICKET86485762560538963075",
-      "TICKET86487385582353515578",
-      "TICKET86489854370782026743",
-      "TICKET86635182147165311287",
-      "TICKET86636940849839890857",
-      "TICKET86644306064154116173",
-      "TICKET86648893713078909865",
-      "TICKET86651567609759730809",
-      "TICKET86652857938288080724",
-      "TICKET86654875450052058990",
-      "TICKET86658429186836344454",
-      "TICKET86672429039427111607",
-      "TICKET86674046633639447210",
-      "TICKET86676755967174912740",
-      "TICKET86678469213229139945",
-      "TICKET86680630270693952908",
-      "TICKET86681532564384678543",
-      "TICKET87307672472034581689",
-      "TICKET87308148850007197253",
-      "TICKET87316865651092228853",
-      "TICKET87316927533650918760",
-      "TICKET87323514513090180188",
-      "TICKET87324067522459724277",
-      "TICKET87324210984290519068",
-      "TICKET87327286723932950061",
-      "TICKET87327335119319501685",
-      "TICKET87329778543721959362",
-      "TICKET87329842250690623585",
-      "TICKET87330730450745833041",
-      "TICKET87330885065530870891",
-      "TICKET87463522272132716042",
-      "TICKET87475356623576880605",
-      "TICKET87475869372450752252",
-      "TICKET87476345946870808100",
-      "TICKET87511276215688245559",
-      "TICKET87512136418489217472",
-      "TICKET87520286695614163626",
-      "TICKET87531690062283918305",
-      "TICKET87532640836720207391"
-    ],
-    "tickets": [
-      "TICKET83230913374917011659",
-      "TICKET83236361037081959847",
-      "TICKET83237449541711337033",
-      "TICKET83239994592695590508",
-      "TICKET83241602893334408577"
-    ],
-    "session": [],
-    "chats": [
-      "PCHAT82355349290939222178",
-      "GCHAT82367285794861745354"
-    ],
+    "active_ticket": [],
+    "tickets": [],
+    "sessions": [],
+    "chats": [],
     "user": "executive"
   },
   {
@@ -78,7 +19,7 @@
     "email": "alice.smith@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -90,7 +31,7 @@
     "email": "bob.johnson@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -102,7 +43,7 @@
     "email": "emily.brown@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -114,7 +55,7 @@
     "email": "david.wilson@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [
       "PCHAT82346622944442104628",
       "PCHAT82355349290939222178",
@@ -130,7 +71,7 @@
     "email": "ella.turner@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -142,7 +83,7 @@
     "email": "george.clark@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -154,7 +95,7 @@
     "email": "fiona.hall@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [
       "GCHAT82367285794861745354"
     ],
@@ -168,7 +109,7 @@
     "email": "henry.adams@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -180,7 +121,7 @@
     "email": "grace.lee@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -192,7 +133,7 @@
     "email": "ivan.garcia@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -204,7 +145,7 @@
     "email": "olivia.smith@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -216,7 +157,7 @@
     "email": "jack.turner@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -228,7 +169,7 @@
     "email": "sophia.davis@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -240,7 +181,7 @@
     "email": "michael.moore@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -252,7 +193,7 @@
     "email": "lily.adams@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -264,7 +205,7 @@
     "email": "william.johnson@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -276,7 +217,7 @@
     "email": "ava.garcia@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -288,7 +229,7 @@
     "email": "james.wilson@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   },
@@ -300,7 +241,7 @@
     "email": "chloe.turner@example.com",
     "active_ticket": [],
     "tickets": [],
-    "session": [],
+    "sessions": [],
     "chats": [],
     "user": "executive"
   }

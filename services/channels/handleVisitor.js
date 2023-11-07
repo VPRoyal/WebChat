@@ -16,5 +16,11 @@ const subscribe= (session)=>{
 const broadcast= (message, event)=>{
     visitorPool.broadcast(message, event)
 }
+const checkVisistor=({visitorID})=>{
+    visitorPool.sessions.forEach(item => {
+        if(item.state.visitorID===visitorID) return true
+    })
+    return false
+}
 
-export {subscribe, broadcast}
+export {subscribe, broadcast, checkVisistor}

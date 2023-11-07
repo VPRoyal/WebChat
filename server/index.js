@@ -19,6 +19,14 @@ import Router from "../routes/route.js"
 
 // Global Variables
 global.TICKETS=new Map()
+/*
+   ----->>> Tickets Format <<<<-------
+   "TICKET_ID":{
+        visitorID,
+        executiveID,
+        lastUpdated
+   }
+*/
 
 var app = express();
 

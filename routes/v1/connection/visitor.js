@@ -1,6 +1,10 @@
 import { Router } from "express";
 import pkg from "better-sse";
 const {createSession} = pkg
+import Jwt from "jsonwebtoken";
+import {config} from "dotenv"
+config()
+
 import { waitingAction } from "../../../services/waitingAction.js";
 import { broadcastByID, broadcast } from "../../../services/channels/handleExecutive.js";
 import { subscribe } from "../../../services/channels/handleVisitor.js";
@@ -28,19 +32,21 @@ router.get("/", async (req, res) => {
     if(!(Ticket?.success)) return res.status(BadRequest.status).json(BadRequest).end()
     ticketID=Ticket.data.ticketID
     VISITOR.addTicket({ticketID, visitorID})
+    global.TICKETS.set(ticketID, {status:"active", visitorID, executiveID:null, lastUpdated: Ticket.data.lastUpdated})
     // ------------->>>>>> Notifying available executive for visitors
     // TODO: Send visitor details too (Optional)
     broadcast({ visitorID, ticketID, type: "request", name:data.name, email:data.email }, "visitor");
 
     // ------------->>>>>> Waiting for executive to respond
     // TODO: Check in fast database for ticket action
-    const action = await waitingAction({ ticketID });
+    const action = await waitingAction({ ticketID, visitorID });
     // var action={}
     // action.success=true
     if (action?.success) {
         action.type="details"
       broadcastByID(action.data.executiveID, action, "visitor");
-      global.TICKETS.set(ticketID, {status:"active", visitorID, executiveID:action.data.executiveID, lastUpdated: Ticket.data.lastUpdated})
+      global.TICKETS[ticketID].executiveID=action.data.executiveID
+      global.TICKETS[ticketID].lastUpdated=Date.now()
       const session = await createSession(req, res)
       // TODO: Function to generate visitor data object
       session.state={visitorID, ticketID}
@@ -48,7 +54,8 @@ router.get("/", async (req, res) => {
 
       // TODO: Details of executive and ticket has to be send here
       // TODO: Need to generate token here then I have to send it in the data below
-      data={...data, ticketID, visitorID, userID: action.data.executiveID, token:"SARV_AUTHENTICATION"}
+      const token =Jwt.sign({tempID: visitorID}, process.env.JWT_SECRET_KEY.VISITOR, { expiresIn: 24*60*60 })
+      data={...data, ticketID, visitorID, userID: action.data.executiveID, token}
       session.push({message:"You are connected", data, type:"details"}, "user")
     } else res.status(RequestTimeout.status).json(RequestTimeout);
   }

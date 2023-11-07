@@ -13,11 +13,11 @@ export default class Executive {
       return { success: false, message: "Error fetching executive", error };
     }
   };
-  acceptChat = async ( {ticketID, executiveID} ) => {
+  acceptChat = async ( {ticketID, userID} ) => {
     // #TODO: Need to be update ExecutiveID as array. To accumulate multiple executives.
     try {
-      const filter = { id: executiveID };
-      const updatingField = { $set: { active_ticket: ticketID } };
+      const filter = { id: userID };
+      const updatingField = { $set: { active_ticket: ticketID, tickets:ticketID } };
       const res = await this.db.updateOne(filter, updatingField);
       if (!res.matchedCount) throw new Error("Doc not found")
       return {success: true,message: "Fields updated successfully."};
@@ -49,4 +49,16 @@ export default class Executive {
       return { success: false, message: "Error updating fields", error };
     }
   };
+  closeTicket= async({ticketID, userID})=>{
+      try{
+        const filter = { id: userID };
+        const update = { $pull: { active_ticket: ticketID } };
+        const res = await this.db.updateOne(filter, update);
+        if (!res.matchedCount) throw new Error("Doc not found")
+      return {success: true,message: "Fields updated successfully."}
+    } catch (error) {
+      console.log("Error updating executive: ", error);
+      return { success: false, message: "Error updating fields", error };
+    }
+  }
 }
