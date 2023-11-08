@@ -10,8 +10,8 @@ import authenticate from '../../../middlewares/authentication.js';
 
 const router = Router();
 router.get("/", async (req, res) => { res.status(Success.status).json(Success)})
-router.use('/visitor', authenticate, visitorRouter);
-router.use('/user',authenticate, userRouter)
+router.use('/visitor', visitorRouter);
+router.use('/user', userRouter)
 router.use('/login', loginRouter)
 
 export default router;

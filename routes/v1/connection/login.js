@@ -20,7 +20,8 @@ router.post("/", async (req, res) => {
             const user=await EXECUTIVE.findUser({email})
             if (user.success){
                 if(user.data.email===email && user.data.password===pass){
-                    const secretKey= process.env.JWT_SECRET_KEY
+                    // #TODO: Has to check if previous login is active or not.
+                    const secretKey= process.env.JWT_USER_KEY
                     const token =Jwt.sign({tempID: user.data.id}, secretKey, { expiresIn: 24*60*60 })
                     // TODO: Has to generate JWT Token here for authentication
                     // TODO: Has to implement some active token DB, so that we can expire on logout.

@@ -16,11 +16,27 @@ const subscribe= (session)=>{
 const broadcast= (message, event)=>{
     visitorPool.broadcast(message, event)
 }
-const checkVisistor=({visitorID})=>{
+const checkVisitor=({visitorID})=>{
+    let bool=false
     visitorPool.sessions.forEach(item => {
-        if(item.state.visitorID===visitorID) return true
+        if(item.state.visitorID===visitorID) return bool=true
     })
-    return false
+    return bool
 }
 
-export {subscribe, broadcast, checkVisistor}
+// Event Listeners---->>>.
+const register=(session)=>{
+    console.log("Session registered: ", session.state)
+}
+const unregister=(session)=>{
+    console.log("Session deregistered: ", session.state)
+}
+const disconnected=(session)=>{
+    console.log("Session disconnected: ", session.state)
+}
+visitorPool
+    .on("session-registered", register)
+	.on("session-deregistered", unregister)
+    .on("session-disconnected", disconnected)
+
+export {subscribe, broadcast, checkVisitor}

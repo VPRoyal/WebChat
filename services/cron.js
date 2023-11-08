@@ -1,5 +1,5 @@
 import CronJob from "node-cron"
-import { EXECUTIVE, TICKET, VISITOR } from "../database"
+import { EXECUTIVE, TICKET, VISITOR } from "../database/index.js"
 const Scheduler=()=>{
     const Job=CronJob.schedule("* * * * *", () => {
         console.log("Cron is running every 1 Minute")

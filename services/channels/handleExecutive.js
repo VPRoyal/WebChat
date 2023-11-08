@@ -13,14 +13,17 @@ const subscribe= (session,)=>{
 const broadcast= (message, event)=>executivePool.broadcast(message, event)
 
 const broadcastByID=(id, message,event)=>{
+    let bool=false
+    console.log({broadcastID: id})
     executivePool.sessions.forEach(item => {
+        console.log({stateID: item.state.userID})
         if (item.state.userID===id) {
+            bool=true
             item.push(message,event)
             return
         }
-        else console.log("Executive gone offline")
     });
-
+    !bool&&console.log("Executive gone offline")
 }
 const broadcastMultiple=(users, message, event)=>{
     executivePool.sessions.forEach(item => {

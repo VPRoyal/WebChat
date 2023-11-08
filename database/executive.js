@@ -17,7 +17,7 @@ export default class Executive {
     // #TODO: Need to be update ExecutiveID as array. To accumulate multiple executives.
     try {
       const filter = { id: userID };
-      const updatingField = { $set: { active_ticket: ticketID, tickets:ticketID } };
+      const updatingField = { $push: { active_ticket: ticketID, tickets:ticketID } };
       const res = await this.db.updateOne(filter, updatingField);
       if (!res.matchedCount) throw new Error("Doc not found")
       return {success: true,message: "Fields updated successfully."};
@@ -27,7 +27,7 @@ export default class Executive {
   };
   addChat = async ({ chatID, users }) => {
     try {
-      const filters = users.map((id) => ({ id }));
+      const filters = users.map((id) => ({ id}));
       const filter = { $or: filters };
       const update = { $push: { chats: chatID } };
       const res = await this.db.updateOne(filter, update);

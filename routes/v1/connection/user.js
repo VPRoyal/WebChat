@@ -1,10 +1,10 @@
 import { Router } from "express";
 import pkg from "better-sse";
 const {createSession} = pkg
-import { authenticate } from "../../../services/authentication.js";
+import AUTH from "../../../middlewares/authentication.js";
 import { subscribe } from "../../../services/channels/handleExecutive.js";
 const router = Router();
-router.get("/", async (req, res) => {
+router.get("/", AUTH.user, async (req, res) => {
     let {userID } = req.query
     // TODO: Authentication function to verify data
     // TODO: Has to register him in the database

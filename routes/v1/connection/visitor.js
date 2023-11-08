@@ -22,7 +22,6 @@ router.get("/", async (req, res) => {
   } else if (!(visitorID || ticketID)) {
     // He is a new person
     const Visitor=await VISITOR.generateVisitor({name:data.name,email:data.email, phone:data.phone })
-    console.log("VISITOR: ", Visitor)
     if(!(Visitor?.success)) return res.status(InternalServerError.status).json(InternalServerError).end()
     visitorID=Visitor.data.visitorID
     // TODO: Check if executive available
@@ -33,6 +32,10 @@ router.get("/", async (req, res) => {
     ticketID=Ticket.data.ticketID
     VISITOR.addTicket({ticketID, visitorID})
     global.TICKETS.set(ticketID, {status:"active", visitorID, executiveID:null, lastUpdated: Ticket.data.lastUpdated})
+    const session = await createSession(req, res)
+    // TODO: Function to generate visitor data object
+    session.state={visitorID, ticketID}
+    subscribe(session)
     // ------------->>>>>> Notifying available executive for visitors
     // TODO: Send visitor details too (Optional)
     broadcast({ visitorID, ticketID, type: "request", name:data.name, email:data.email }, "visitor");
@@ -44,22 +47,20 @@ router.get("/", async (req, res) => {
     // action.success=true
     if (action?.success) {
         action.type="details"
+        console.log({actionData: action})
       broadcastByID(action.data.executiveID, action, "visitor");
-      global.TICKETS[ticketID].executiveID=action.data.executiveID
-      global.TICKETS[ticketID].lastUpdated=Date.now()
-      const session = await createSession(req, res)
-      // TODO: Function to generate visitor data object
-      session.state={visitorID, ticketID}
-      subscribe(session)
+      console.log("Ticket: ", global.TICKETS.get(ticketID))
+      global.TICKETS.set(ticketID,{executiveID:action.data.executiveID,lastUpdated:Date.now()})
+      
 
       // TODO: Details of executive and ticket has to be send here
       // TODO: Need to generate token here then I have to send it in the data below
-      const token =Jwt.sign({tempID: visitorID}, process.env.JWT_SECRET_KEY.VISITOR, { expiresIn: 24*60*60 })
+      const token =Jwt.sign({tempID: visitorID}, process.env.JWT_VISITOR_KEY, { expiresIn: 1*60*60 })
       data={...data, ticketID, visitorID, userID: action.data.executiveID, token}
       session.push({message:"You are connected", data, type:"details"}, "user")
-    } else res.status(RequestTimeout.status).json(RequestTimeout);
+    } else {session.push(RequestTimeout, "close"); res.end()}
   }
-  else{res.status(BadRequest.status).json(BadRequest)}
+  else{return res.status(BadRequest.status).json(BadRequest).end()}
 });
 
 export default router;

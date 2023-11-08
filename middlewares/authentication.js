@@ -5,11 +5,12 @@ import {config} from "dotenv"
 config()
 class Authenticate{
     // #TODO: Has to implement toke fetch from headers, not from request body.
-    // #TODO: Has to implement token check from global variables
+    // #TODO: Has to implement token expiry check from global variables and to implement token expiry mechnaism on logout.
     constructor(){
-        this.keys=process.env.JWT_SECRET_KEY
+        this.keys={VISITOR:process.env.JWT_VISITOR_KEY, USER: process.env.JWT_USER_KEY}
     }
-    jwtVerify=async(token, key)=>{
+    jwtVerify=(token, key)=>{
+        console.log({key})
         try {
             const data= Jwt.verify(token, key)
             return {success:true, data}
@@ -20,8 +21,10 @@ class Authenticate{
     user= async(req, res, next)=>{
         // #TODO: Has to check if token expired or not.
         const token=req.body?.token || req.query?.token
+        const userID=req.body?.userID || req.query?.userID
         const JWT=this.jwtVerify(token, this.keys.USER)
-        if(JWT.success&&JWT.data?.tempID) next()
+        console.log({JWT, userID})
+        if(JWT.success&&JWT.data?.tempID===userID) next()
         else return res.status(Unauthorized.status).json(Unauthorized)
     }
     message= async(req, res, next)=>{
@@ -35,14 +38,17 @@ class Authenticate{
         }else if(user==="EXECUTIVE"){
             keys= this.keys.USER
             visitor=receiverID
-            executive=this.senderID
+            executive=senderID
         }else return res.status(InvalidParameters.status).json(InvalidParameters)
+        console.log({keys, visitor, executive})
         const JWT=this.jwtVerify(token, keys)
+        console.log({JWT})
         if(JWT.success){
             if(type=="TICKET" &&ticketID){
                 const ticket=await TICKET.findTicket({id:ticketID})
+                console.log({ticket})
                 if(!ticket.success) return res.status(InternalServerError.status).json(InternalServerError)
-                if(!(ticket.visitorID===visitor && ticket.executiveID===executive && JWT?.data?.tempID===senderID && ticket.isOpen && !ticket.isClose)) return res.status(Unauthorized.status).json(Unauthorized)
+                if(!(ticket.data.visitorID===visitor && ticket.data.executiveID===executive && JWT?.data?.tempID===senderID && ticket.data.isOpen && !ticket.data.isClose)) return res.status(Unauthorized.status).json(Unauthorized)
                 next()
             }else if((type=="PRIVATE" || type=="GROUP")&&chatID){
                 // #TODO: We can also check for access to various group members through this.

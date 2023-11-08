@@ -62,6 +62,9 @@ export const UndeliveredMessage = extend({}, InternalServerError, {
 export const TicketAlreadyAccepted = extend({}, NotFound, {
   message: "Ticket already accepted",
 });
+export const TicketExpired = extend({}, NotFound, {
+  message: "Ticket expired",
+});
 // export const invalidSearchTerm = extend({}, this.BadRequest, {
 //     message: 'Invalid search term',
 // });

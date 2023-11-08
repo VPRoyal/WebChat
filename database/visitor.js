@@ -27,7 +27,7 @@ export default class Visitor {
   addTicket= async ({ticketID, visitorID})=>{
     try {
       const filter={ id: visitorID }
-      const update={$set: {activeTicket: ticketID,tickets: {$each: [ticketID],$position: 0}}}
+      const update={$set: {activeTicket: ticketID},$push:{tickets: ticketID}}
       const res= await this.db.updateOne(filter, update)
       if (!res.matchedCount) throw new Error("Doc not found")
       return { success: true, message:"Ticket added" }

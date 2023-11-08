@@ -14,6 +14,7 @@ import {
   Success,
   TicketAlreadyAccepted,
   InternalServerError,
+  TicketExpired,
 } from "../../utils/errors.js";
 import { sendMessageByTicket } from "../../services/chat.js";
 import {
@@ -35,8 +36,9 @@ router.post("/sendMessage", AUTH.message, async (req, res) => {
   console.log("Body: ", req.body);
   if (type === "TICKET" && ticketID && senderID) {
     // TODO: Need to validate ticket here
+    if(!global.TICKETS.has(ticketID)) return res.status(TicketExpired.status).json(TicketExpired)
     // TODO: Need to validate if the ID is associated with right type of user
-    global.TICKETS[ticketID].lastUpdated=Date.now()
+    global.TICKETS.set(ticketID,{lastUpdated:Date.now()})
     const messageRes = await MESSAGE.generateMessage({
       senderID,
       ticketID,
@@ -108,8 +110,7 @@ router.post("/acceptChat", AUTH.user, async (req, res) => {
   const { ticketID, userID } = req.body;
   // #TODO: This function need to be improved to check if ticket exist of not.
   const ticketStatus = await TICKET.findTicket({ id: ticketID });
-  if (ticketStatus?.data.isOpen || ticketStatus?.data.isClose)
-    return res.status(TicketAlreadyAccepted.status).json(TicketAlreadyAccepted);
+  // if (ticketStatus?.data.isOpen || ticketStatus?.data.isClose) return res.status(TicketAlreadyAccepted.status).json(TicketAlreadyAccepted);
   // #TODO: Need to work over these functions to manage database updates for both TICKET and EXECUTIVE
   const ticketUpdate = await TICKET.acceptChat({ ticketID, userID });
   const executiveUpdate = await EXECUTIVE.acceptChat({ ticketID, userID });

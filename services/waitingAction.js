@@ -1,5 +1,5 @@
 import {TICKET} from "../database/index.js"
-import { checkVisistor } from "./channels/handleVisitor.js";
+import { checkVisitor } from "./channels/handleVisitor.js";
 // #TODO: This function needs to be improved to handle situation when user diconnected.
 const checkAction = async ({ ticketID, visitorID }) => {
   return new Promise((resolve, reject) => {
@@ -13,8 +13,8 @@ const checkAction = async ({ ticketID, visitorID }) => {
 
         }
       try {
-        console.log("axiosPost")
-        if(!checkVisistor({visitorID})){
+        console.log("Cheking Action")
+        if(!checkVisitor({visitorID})){
           clearInterval(Interval)
           reject("Visitor disconnected")
         }
@@ -35,6 +35,7 @@ const checkAction = async ({ ticketID, visitorID }) => {
 const waitingAction = async ({ ticketID, visitorID }) => {
   try {
     const res = await checkAction({ ticketID,visitorID });
+    console.log({waitingRes: res})
     return res;
   } catch (error) {return {success:false,message:"Error in executive action waiting",error}};
 };
