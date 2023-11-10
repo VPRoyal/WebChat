@@ -15,6 +15,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   let { ticketID, visitorID, ...data } = req.query;
   // TODO: Has to validate the incoming data
+  // TODO: Has to check if data is there
   if (visitorID && ticketID) {
     // He will be a old person
     // TODO: Implement user Identification

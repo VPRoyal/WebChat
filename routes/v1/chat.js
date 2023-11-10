@@ -110,7 +110,7 @@ router.post("/acceptChat", AUTH.user, async (req, res) => {
   const { ticketID, userID } = req.body;
   // #TODO: This function need to be improved to check if ticket exist of not.
   const ticketStatus = await TICKET.findTicket({ id: ticketID });
-  // if (ticketStatus?.data.isOpen || ticketStatus?.data.isClose) return res.status(TicketAlreadyAccepted.status).json(TicketAlreadyAccepted);
+  if (ticketStatus?.data.isOpen || ticketStatus?.data.isClose) return res.status(TicketAlreadyAccepted.status).json(TicketAlreadyAccepted);
   // #TODO: Need to work over these functions to manage database updates for both TICKET and EXECUTIVE
   const ticketUpdate = await TICKET.acceptChat({ ticketID, userID });
   const executiveUpdate = await EXECUTIVE.acceptChat({ ticketID, userID });
@@ -118,9 +118,7 @@ router.post("/acceptChat", AUTH.user, async (req, res) => {
   if (ticketUpdate.success && executiveUpdate.success) {
     attachTicket({ ticketID, userID });
     console.log("globals: ", global);
-    res
-      .status(200)
-      .json({ success: ticketUpdate.success, message: ticketUpdate.message });
+    res.status(200).json(ticketUpdate);
   } else res.status(BadRequest.status).json(BadRequest);
 });
 router.post("/startPrivateChat",AUTH.user, async (req, res) => {
