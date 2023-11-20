@@ -4,7 +4,7 @@ import { CHAT, TICKET } from "../database/index.js";
 import {config} from "dotenv"
 config()
 class Authenticate{
-    // #TODO: Has to implement toke fetch from headers, not from request body.
+    // #TODO: Has to implement token fetch from headers, not from request body.
     // #TODO: Has to implement token expiry check from global variables and to implement token expiry mechnaism on logout.
     constructor(){
         this.keys={VISITOR:process.env.JWT_VISITOR_KEY, USER: process.env.JWT_USER_KEY}
@@ -23,7 +23,6 @@ class Authenticate{
         const token=req.body?.token || req.query?.token
         const userID=req.body?.userID || req.query?.userID
         const JWT=this.jwtVerify(token, this.keys.USER)
-        console.log({JWT, userID})
         if(JWT.success&&JWT.data?.tempID===userID) next()
         else return res.status(Unauthorized.status).json(Unauthorized)
     }

@@ -12,7 +12,7 @@ import {EXECUTIVE} from "../../../database/index.js"
 const router = Router();
 router.post("/", async (req, res) => {
         const {email, pass}=req.body
-        // TODO: Validation Function to validate paramters
+        // TODO: Validation Function to validate parameters
         // TODO: Malicious parameter checking fuction (security)
         // TODO: Can also be improved to use passport verification.
         try {
