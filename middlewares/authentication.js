@@ -29,6 +29,7 @@ class Authenticate{
     message= async(req, res, next)=>{
         const {user, type, ticketID, chatID, senderID, receiverID}=req.body
         const token=req.body?.token || req.query?.token
+        if(!token) return res.status(InvalidParameters.status).json(InvalidParameters)
         let executive, visitor, keys
         if(user==="VISITOR"){
             keys=this.keys.VISITOR

@@ -1,18 +1,18 @@
 To Do:
 -----------
-1. Created dummy authenitcation in authenitcation.js, need to be updated
-2. Need to validated each input, like token too in authentication.
-3. Basic database structure has to be created for Executive,Visitor, message and ticket.
-4. Has to add some data in the subscribe event so that we can also update in database
-5. Created basic database operation for json data, which need to be changed
-6. Have to make a function to generate random ID to identify a Visitor.
-7. Have to add a timeout error in waitingAction service
-8. Need to check for executive in the pool if available
-9. I have created a generateMessage function, which saves various id as Visitor and executive and I need to change it.
-10. Have to add validations at various places, these are not there
-11. I have to check for both isOpne and isClose fields in the ticket before intiatiating chat
-12. Have to create an authentication middleware to protect the routes
-13. Has to do some changes in databases and backend as per new databases.
+1. Created dummy authenitcation in authenitcation.js, need to be updated ✓
+2. Need to validated each input, like token too in authentication. ✓
+3. Basic database structure has to be created for Executive,Visitor, message and ticket. ✓
+4. Has to add some data in the subscribe event so that we can also update in database ✓
+5. Created basic database operation for json data, which need to be changed ✓
+6. Have to make a function to generate random ID to identify a Visitor. ✓
+7. Have to add a timeout error in waitingAction service ✓
+8. Need to check for executive in the pool if available ✓
+9. I have created a generateMessage function, which saves various id as Visitor and executive and I need to change it. ✓
+10. Have to add validations at various places, these are not there ✓
+11. I have to check for both isOpne and isClose fields in the ticket before intiatiating chat ✓
+12. Have to create an authentication middleware to protect the routes ✓
+13. Has to do some changes in databases and backend as per new databases. ✓
 
 
 -------------

@@ -23,8 +23,7 @@ router.post("/", async (req, res) => {
                     // #TODO: Has to check if previous login is active or not.
                     const secretKey= process.env.JWT_USER_KEY
                     const token =Jwt.sign({tempID: user.data.id}, secretKey, { expiresIn: 24*60*60 })
-                    // TODO: Has to generate JWT Token here for authentication
-                    // TODO: Has to implement some active token DB, so that we can expire on logout.
+                    // TODO: Has to implement some active token DB, so that we can expire on logout. 
                     // TODO: Functionality to update data in the executive Database, like lastLogin, ip, device details, etc.
                     res.status(200).json({success:true, data:{userID:user.data.id, token}, message:"User successfully logged in"})
                 }else {res.status(InvalidCredentials.status).json(InvalidCredentials)}

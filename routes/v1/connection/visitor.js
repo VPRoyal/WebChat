@@ -6,10 +6,10 @@ import {config} from "dotenv"
 config()
 
 import { waitingAction } from "../../../services/waitingAction.js";
-import { broadcastByID, broadcast } from "../../../services/channels/handleExecutive.js";
+import { broadcastByID, broadcast, sessionCount } from "../../../services/channels/handleExecutive.js";
 import { subscribe } from "../../../services/channels/handleVisitor.js";
 
-import { BadRequest, InternalServerError, RequestTimeout } from "../../../utils/errors.js";
+import { BadRequest, InternalServerError, NoExecutive, RequestTimeout } from "../../../utils/errors.js";
 import {VISITOR, TICKET} from '../../../database/index.js'
 const router = Router();
 router.get("/", async (req, res) => {
@@ -20,12 +20,14 @@ router.get("/", async (req, res) => {
     // He will be a old person
     // TODO: Implement user Identification
     // TODO: Implement Ticket Expiration check
+    // TODO: Has to push all messages which were not in sync.
   } else if (!(visitorID || ticketID)) {
     // He is a new person
     const Visitor=await VISITOR.generateVisitor({name:data.name,email:data.email, phone:data.phone })
     if(!(Visitor?.success)) return res.status(InternalServerError.status).json(InternalServerError).end()
     visitorID=Visitor.data.visitorID
     // TODO: Check if executive available
+    if(!sessionCount()>0) return res.status(NoExecutive.status).json(NoExecutive)
     // TODO: Generate Ticket if executive avaialable
     // TODO: ADD Ticket in permanent database as well as in temp Database for fast access.
     const Ticket= await TICKET.generateTicket({visitorID})

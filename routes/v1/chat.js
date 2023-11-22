@@ -38,6 +38,7 @@ router.post("/sendMessage", AUTH.message, async (req, res) => {
     // TODO: Need to validate ticket here
     if(!global.TICKETS.has(ticketID)) return res.status(TicketExpired.status).json(TicketExpired)
     // TODO: Need to validate if the ID is associated with right type of user
+  //  TODO: Has to check if either sender and receiver are online or not
     global.TICKETS.set(ticketID,{lastUpdated:Date.now()})
     const messageRes = await MESSAGE.generateMessage({
       senderID,
